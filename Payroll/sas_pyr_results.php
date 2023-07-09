@@ -1,71 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Submission Result</title>
-    <style> /*kinopya ko lang to from past activity para lang ma check database, aayusin ko pa css nito pati mismong html */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
+    <title>Payroll Data Submission Result</title>
+    <style>
+        body{
+            background-image: url(./img/sas_bg.jpg);
         }
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            background-color: #fff;
+        .container{
+            text-align: center;
+            background-color: #fc84a2;
             padding: 20px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: auto ;
+            margin-top: 4%;
+            margin-bottom: 4%;
+            border: 0px solid;
+            border-radius: 20px;
         }
-
-        h2 {
-            color: #333;
-            margin-top: 0;
-        }
-
-        p {
-            margin-bottom: 10px;
-        }
-
-        .btn {
+        .results{
+            text-align:center;
             display: inline-block;
+            border-radius: 3px;
             padding: 10px 20px;
-            background-color: #4c55af;
+            background-color: #fc84a2;
             color: #fff;
             text-decoration: none;
             border-radius: 4px;
-            transition: background-color 0.3s ease;
         }
-
-        .btn:hover {
-            background-color: #45a049;
+        .btn {
+            font-family: Cooper;
+            padding: 15px 25px;
+            background-color: #781113; color: #fff;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+            border-radius: 12px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2> Form Submission Result </h2>
+        <div class="results">
+        <h1>Payroll Data Submission Result</h1>
         <?php
 
-        if (isset($_POST['name']) && isset($_POST['grossIncome']) && isset($_POST['totalded']) && isset($_POST['Sweldo'])) {
+        if (isset($_POST['name']) && isset($_POST['dailypay']) && isset($_POST['hoursworked']) && isset($_POST['daysworked']) 
+        && isset($_POST['miscpay']) && isset($_POST['tax']) && isset($_POST['hmo'])
+        && isset($_POST['sss']) && isset($_POST['pagibig']) && isset($_POST['benefits'])) {
             include 'sas_pyr_database.php';
 
             $name = $_POST['name'];
-            $grossIncome = $_POST['grossIncome'];
-            $totalded = $_POST['totalded'];
-            $Sweldo = $_POST['Sweldo'];
+            $dailypay = $_POST['dailypay'];
+            $hoursworked = $_POST['hoursworked'];
+            $daysworked = $_POST['daysworked'];
+            $miscpay = $_POST['miscpay'];
+            $tax= $_POST['tax'];
+            $hmo = $_POST['hmo'];
+            $sss = $_POST['sss'];
+            $pagibig = $_POST['pagibig'];
+            $benefits = $_POST['benefits'];
+
+            $Percent = null;
+            $grossIncome = 0;
+            $totalded = 0;
+            switch ($hoursworked) {
+                case 0:
+                    $Percent = 0;
+                    break;
+                case 1:
+                    $Percent = 0.125;
+                    break;
+                case 2:
+                    $Percent = 0.25;
+                    break;
+                case 3:
+                    $Percent = 0.375;
+                    break;
+                case 4:
+                    $Percent = 0.50;
+                    break;
+                case 5:
+                    $Percent = 0.625;
+                    break;
+                case 6:
+                    $Percent = 0.75;
+                    break;
+                case 7:
+                    $Percent = 0.875;
+                    break;
+                case 8:
+                    $Percent = 1;
+                    break;
+                default:
+                echo ("Invalid");
+            }
+
+            $grossIncome = ($dailypay*$daysworked)*$Percent+$miscpay;
+            $totalded = $tax+$hmo+$pagibig+$benefits+$sss;
+            
+            $Sweldo = $grossIncome-$totalded;
 
             echo "<p><strong>Name:</strong>" . $name . "</p>";
-            echo "<p><strong>Email:</strong>" . $grossIncome . "</p>";
-            echo "<p><strong>Message:</strong>" . $totalded . "</p>";
-            echo "<p><strong>Message:</strong>" . $Sweldo . "</p>";
+            echo "<p><strong>Gross Income:</strong>" . $grossIncome . "</p>";
+            echo "<p><strong>Total Deductions:</strong>" . $totalded . "</p>";
+            echo "<p><strong>Net Payment: ₱</strong>" . $Sweldo . "</p>";
+            echo "<br>";
+
         } else {
             echo "<p> No form data submitted </p>";
         }
         ?>
 
-        <a href="sas_pyr_edit_payment.html" class="btn">Go Back</a>
+        <a href="sas_pyr_payroll.php" class="btn">Go Back</a>
+        <a href="sas_pyr_viewdb.php" class="btn">View Entries</a>
+        </div>
     </div>
 </body>
 </html>

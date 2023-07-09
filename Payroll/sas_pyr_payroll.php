@@ -4,11 +4,27 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial scale=1.0">
     <title>Payroll Accounts</title>
     <link rel="stylesheet" type="text/css" href="sas_pyr_css.css">
+    <style>
+        body{
+            background-image: url("./img/sas_bg.jpg");
+        }
+        #submit{
+            display: inline-block;
+    padding: 10px 20px;
+    background-color: #781113;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+        }
+    </style>
 
 </head>
 <body>
     <div class="Form">
-        <form class="form-container" action="sas_pyr_database.php" method="post" name="Payrolls" >
+        <form class="form-container" action="sas_pyr_results.php" method="post" name="Payrolls" >
             <table id="table1" border="3" align="center" style="background-color: white;">
                 <tr>
                     <td colspan="4" align="center">
@@ -132,7 +148,7 @@
                     <table border="3" align="center" style="background-color: white;">
                         <tr>
                             <td>
-                                <input type="submit" value="Submit">
+                                <input type="submit" id="submit" value="Submit">
                             </td>
                         </tr>
                     </table>

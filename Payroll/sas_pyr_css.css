@@ -3,10 +3,6 @@
     position: relative;
 }
 
-body {
-    background-color: #ffe5ec;
-}
-
 input {
     width: 100px;
     padding-left: px;
@@ -63,7 +59,7 @@ input {
 }
 
 /*Form button */
-.form-button {
+.form-button, .btn{
     display: inline-block;
     padding: 10px 20px;
     background-color: #781113;
@@ -76,6 +72,6 @@ input {
 }
 
 /* Form button hover */
-.form-button:hover {
+.form-button, .btn:hover {
     background-color: #ffc2d1;
 }
